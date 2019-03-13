@@ -137,7 +137,7 @@ def run_test_draw_circles_from_rectangle():
     print('--------------------------------------------------')
 
     # -------------------------------------------------------------------------
-    # TODO: 3. Implement this TEST function.
+    # Done: 3. Implement this TEST function.
     #   It TESTS the  draw_circles_from_rectangle  function
     #   defined below.  Include at least **   3   ** tests, of which
     #      ***  at least TWO tests are on ONE window and
@@ -149,23 +149,53 @@ def run_test_draw_circles_from_rectangle():
     #   Follow the same form as the example in a previous problem.
     ###########################################################################
     # -------------------------------------------------------------------------
+    title = 'Tests 1 & 2 DRAW_CIRCLES_FROM_RECTANGLE: '
+    title = title + '4 Green Circles and 5 Black and White Circles & 6 Blue Circles and 5 Black and White Circles'
+    window1 = rg.RoseWindow(720, 500, title)
+    rectangle = rg.Rectangle(rg.Point(400, 250), rg.Point(440, 325))
+    rectangle.fill_color = 'green'
+    draw_circles_from_rectangle(4,5,rectangle, window1)
+
+
+    rectangle = rg.Rectangle(rg.Point(600, 400), rg.Point(500, 450))
+    rectangle.fill_color = 'blue'
+    draw_circles_from_rectangle(6, 5, rectangle, window1)
+    window1.close_on_mouse_click()
+
+    title = 'Test 3 DRAW_CIRCLES_FROM_RECTANGLE: '
+    title = title + '6 Yellow Circles and 10 Black and White Circles'
+    window2 = rg.RoseWindow(620, 380, title)
+    rectangle = rg.Rectangle(rg.Point(375, 330), rg.Point(350, 280))
+    rectangle.fill_color = 'yellow'
+    draw_circles_from_rectangle(6, 10, rectangle, window2)
+    window2.close_on_mouse_click()
 
 
 def draw_circles_from_rectangle(m, n, rectangle, window):
+    uppercorner=rectangle.get_upper_left_corner()
+    upperx=uppercorner.x
+    uppery=uppercorner.y
+    lowercorner=rectangle.get_lower_right_corner()
+    lowerx=lowercorner.x
+    lowery=lowercorner.y
     rectangle.attach_to(window)
-    corner11=rectangle.corner1
-    corner22=rectangle.corner2
-    topx=rectangle.corner1.x
-    topy=rectangle.corner1.y
-    botomx=rectangle.corner2.x
-    botomy=rectangle.corner2.y
-    radiusy=(rectangle.corner2.y-rectangle.corner1.y)/2
-    radiusx=(rectangle.corner2.x-rectangle.corner1.x)/2
-    centerx=rectangle.corner1.x-radiusx*2
-    centery=rectangle.corner1.y-radiusy*2
-    hcircle=rg.Circle(centerx,centery)
-    hcircle.attach_to(window)
+    heighty=lowery-uppery
+    widthx=abs(lowerx-upperx)
+    centerym = lowery - heighty/2
+    centerxn=lowerx-widthx/2
+    for k in range (m):
+        centerx = abs(upperx +(1/2)*heighty- heighty*(k+1))
+        hcircle=rg.Circle(rg.Point(centerx,centerym),heighty/2)
+        hcircle.fill_color=rectangle.fill_color
+        hcircle.attach_to(window)
+
+    for j in range (n):
+        centery = abs(uppery +(1/2)*widthx-(widthx * (j + 1)))
+        hcircle = rg.Circle(rg.Point(centerxn, centery), widthx/2)
+        hcircle.outline_color = rectangle.outline_color
+        hcircle.attach_to(window)
     window.render()
+
 
     """
     What comes in:  Four arguments:
@@ -206,7 +236,7 @@ def draw_circles_from_rectangle(m, n, rectangle, window):
       :type window: rg.RoseWindow
     """
     # -------------------------------------------------------------------------
-    # TODO: 4. Implement and test this function.
+    # Done: 4. Implement and test this function.
     #          Tests have been written for you (above).
     #
     # CONSIDER using the ACCUMULATOR IN GRAPHICS pattern,
@@ -262,6 +292,37 @@ def run_test_draw_lines_from_rectangles():
 
 
 def draw_lines_from_rectangles(rectangle1, rectangle2, n, window):
+    rectangle1.attach_to(window)
+    rectangle2.attach_to(window)
+    r1down=rectangle1.get_lower_right_corner()
+    r1up=rectangle1.get_upper_left_corner()
+    r1x=(r1down.x-r1up.x)/2+r1up.x
+    r1y=(r1down.y-r1up.y)/2+r1up.y
+    r2down = rectangle2.get_lower_right_corner()
+    r2up = rectangle2.get_upper_left_corner()
+    r2x = (r2down.x - r2up.x) / 2 + r2up.x
+    r2y=(r2down.y - r2up.y) / 2 + r2up.y
+    LL=rectangle1.get_lower_left_corner()
+    LLx=LL.x
+    LLy=LL.y
+    movex=abs(r1x-LLx)
+    movey=abs(r1y-LLy)
+
+
+
+
+    for k in range (n):
+        point1=rg.Point(r1x,r1y)
+        point2=rg.Point(r2x,r2y)
+        line1 = rg.Line(point1, point2)
+        line1.attach_to(window)
+        point12=rg.Point(LLx-movex*k,LLy+movey*k)
+        point22=rg.Point(r2x-movex,r2y+movey*(k+1))
+        line2=rg.Line(point12,point22)
+        line2.attach_to(window)
+    window.render()
+
+
     """
     What comes in:  Four arguments:
       -- Two rg.Rectangles.
