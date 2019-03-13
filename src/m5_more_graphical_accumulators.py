@@ -73,13 +73,22 @@ def run_test_draw_squares_from_circle():
 
 
 def draw_squares_from_circle(n, circle, window):
-
     circle.attach_to(window)
-
-    rg.Square()
+    centerpoint=rg.Point(circle.center.x,circle.center.y)
+    square1=rg.Square(centerpoint,2*circle.radius)
+    square1.attach_to(window)
     window.render()
-    window.close_on_mouse_click()
-    """
+    x=circle.center.x
+    y=circle.center.y
+    for _ in range (n):
+        x=x+circle.radius
+        y=y+circle.radius
+        centerpoint = rg.Point(x,y)
+        square1 = rg.Square(centerpoint, 2 * circle.radius)
+        square1.attach_to(window)
+    window.render()
+
+"""
     What comes in:  Three arguments:
       -- A positive integer n.
       -- An rg.Circle.
@@ -104,7 +113,7 @@ def draw_squares_from_circle(n, circle, window):
       :type window: rg.RoseWindow
     """
     # -------------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # Done: 2. Implement and test this function.
     #          Tests have been written for you (above).
     #
     # CONSIDER using the ACCUMULATOR IN GRAPHICS pattern,
@@ -143,6 +152,21 @@ def run_test_draw_circles_from_rectangle():
 
 
 def draw_circles_from_rectangle(m, n, rectangle, window):
+    rectangle.attach_to(window)
+    corner11=rectangle.corner1
+    corner22=rectangle.corner2
+    topx=rectangle.corner1.x
+    topy=rectangle.corner1.y
+    botomx=rectangle.corner2.x
+    botomy=rectangle.corner2.y
+    radiusy=(rectangle.corner2.y-rectangle.corner1.y)/2
+    radiusx=(rectangle.corner2.x-rectangle.corner1.x)/2
+    centerx=rectangle.corner1.x-radiusx*2
+    centery=rectangle.corner1.y-radiusy*2
+    hcircle=rg.Circle(centerx,centery)
+    hcircle.attach_to(window)
+    window.render()
+
     """
     What comes in:  Four arguments:
       -- Positive integers m and n.
