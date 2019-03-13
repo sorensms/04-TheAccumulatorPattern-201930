@@ -69,6 +69,22 @@ def run_test_draw_parallel_lines():
 
 
 def draw_parallel_lines(n, point, length, window):
+    start=rg.Point(point.x,point.y)
+    x=point.x
+    xend=point.x+length
+    y=point.y
+    for _ in range(n):
+        end=rg.Point(xend,y)
+        line=rg.Line(start,end)
+        y=y-30
+        start=rg.Point(x,y)
+        line.attach_to(window)
+    window.render()
+
+    #                  circle = rg.Circle(point, radius)
+    #                  circle.attach_to(window)
+    #                  x = x + diameter
+
     """
     What comes in: The four arguments are:
       -- A positive integer n.
@@ -96,7 +112,7 @@ def draw_parallel_lines(n, point, length, window):
       :type window: rg.RoseWindow
     """
     # -------------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # Done: 2. Implement and test this function.
     #          Tests have been written for you (above).
     #
     # CONSIDER using the ACCUMULATOR IN GRAPHICS pattern,
@@ -134,6 +150,17 @@ def run_test_draw_lines():
 
 
 def draw_lines(n, point, window):
+    start = rg.Point(point.x, point.y)
+    x = point.x
+    yoriginal = point.y
+    y=point.y
+    for _ in range(n):
+        y = y - 100 + 200 / n
+        end = rg.Point(x+100, y)
+        line = rg.Line(start, end)
+        start = rg.Point(x, yoriginal)
+        line.attach_to(window)
+    window.render()
     """
     What comes in: The three arguments are:
       -- A integer n that is at least 2.
@@ -161,7 +188,7 @@ def draw_lines(n, point, window):
       :type window: rg.RoseWindow
     """
     # -------------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # Done: 3. Implement and test this function.
     #          Tests have been written for you (above).
     #
     # CONSIDER using the ACCUMULATOR IN GRAPHICS pattern,
