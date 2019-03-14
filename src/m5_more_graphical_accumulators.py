@@ -305,8 +305,8 @@ def draw_lines_from_rectangles(rectangle1, rectangle2, n, window):
     LL=rectangle1.get_lower_left_corner()
     LLx=LL.x
     LLy=LL.y
-    movex=abs(r1x-LLx)
-    movey=abs(r1y-LLy)
+    movex=abs(r1down.x-r1up.x)/2
+    movey=abs(r1down.y-r1up.y)/2
 
 
 
@@ -317,7 +317,7 @@ def draw_lines_from_rectangles(rectangle1, rectangle2, n, window):
         line1 = rg.Line(point1, point2)
         line1.attach_to(window)
         point12=rg.Point(LLx-movex*k,LLy+movey*k)
-        point22=rg.Point(r2x-movex,r2y+movey*(k+1))
+        point22=rg.Point(r2x-(movex*k),r2y+movey*(k+1))
         line2=rg.Line(point12,point22)
         line2.attach_to(window)
     window.render()
