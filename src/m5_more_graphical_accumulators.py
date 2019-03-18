@@ -296,30 +296,33 @@ def draw_lines_from_rectangles(rectangle1, rectangle2, n, window):
     rectangle2.attach_to(window)
     r1down=rectangle1.get_lower_right_corner()
     r1up=rectangle1.get_upper_left_corner()
-    r1x=(r1down.x-r1up.x)/2+r1up.x
-    r1y=(r1down.y-r1up.y)/2+r1up.y
+    ax=r1up.x
+    ay=r1up.y
+    bx=r1down.x
+    by=r1down.y
+    center1x=(bx-ax)/2+ax
+    center1y=(by-ay)/2+ay
+    pointr1=rg.Point(center1x,center1y)
     r2down = rectangle2.get_lower_right_corner()
     r2up = rectangle2.get_upper_left_corner()
-    r2x = (r2down.x - r2up.x) / 2 + r2up.x
-    r2y=(r2down.y - r2up.y) / 2 + r2up.y
-    LL=rectangle1.get_lower_left_corner()
-    LLx=LL.x
-    LLy=LL.y
-    movex=abs(r1down.x-r1up.x)/2
-    movey=abs(r1down.y-r1up.y)/2
+    cx=r2up.x
+    cy=r2up.y
+    dx=r2down.x
+    dy=r2down.y
+    center2x=(dx-cx)/2+cx
+    center2y=(dy-cy)/2+cy
+    pointr2=rg.Point(center2x,center2y)
+    line=rg.Line(pointr1,pointr2)
+    line.attach_to(window)
+    r1downleft=rectangle1.get_lower_left_corner()
+    ex=r1downleft.x
+    ey=r1downleft.y
+    pointe=rg.Point(ex,ey)
+    line2=rg.Line(pointe,pointr2)
+    line2.attach_to(window)
+    rg.Line.
 
 
-
-
-    for k in range (n):
-        point1=rg.Point(r1x,r1y)
-        point2=rg.Point(r2x,r2y)
-        line1 = rg.Line(point1, point2)
-        line1.attach_to(window)
-        point12=rg.Point(LLx-movex*k,LLy+movey*k)
-        point22=rg.Point(r2x-(movex*k),r2y+movey*(k+1))
-        line2=rg.Line(point12,point22)
-        line2.attach_to(window)
     window.render()
 
 
